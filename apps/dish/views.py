@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from .models import Dish, Recipie
 from .serializers import DishSerializers, RecipieSerializers
 from rest_framework.authentication import BasicAuthentication
-from rest_framework.permissions import IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import *
 
 class DishViewSet(viewsets.ModelViewSet):
     queryset=Dish.objects.all()
@@ -16,5 +16,5 @@ class DishViewSet(viewsets.ModelViewSet):
 class RecipieViewSet(viewsets.ModelViewSet):
     queryset = Recipie.objects.all()
     serializer_class = RecipieSerializers
-    # authentication_classes= [BasicAuthentication]
+    # authentication_classes= [AllowAny]
     permission_classes= [IsAuthenticatedOrReadOnly]
