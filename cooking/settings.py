@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from datetime import timedelta
 
 load_dotenv()
 
@@ -34,19 +35,28 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+COOKING_APPS = [
+    'apps.dish',
+    'apps.recipie',
+    'apps.users',
+    ]
+
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'apps.dish',
-    'apps.recipie',
-    'apps.users',
-    'rest_framework_simplejwt',
+]
 
+THIRD_PARTY_APPS = [
+    'rest_framework',
+    'rest_framework_simplejwt',
+]
+
+INSTALLED_APPS = [
+    *DJANGO_APPS, *THIRD_PARTY_APPS, *COOKING_APPS
 ]
 
 MIDDLEWARE = [
@@ -146,3 +156,12 @@ REST_FRAMEWORK = {
 
 }
 
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": SECRET_KEY,
+
+}
+
+AUTH_USER_MODEL = 'users.CustomUser'
